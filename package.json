@@ -1,0 +1,14 @@
+{
+  "name": "checko-api",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": "git@github.com:dezkareid/checko-api.git",
+  "author": "DezkaReid <elmaildeldezkareid@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
