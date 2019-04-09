@@ -1,11 +1,22 @@
+const config = require('./config')
+const mongoose = require('mongoose')
 const express = require('express')
 const app = express()
-const PORT = process.env.PORT || 9000
+
+mongoose.connect(config.database_url, { useNewUrlParser: true })
+  .then(
+    () => {
+      console.log('Database Ready For Action')
+    },
+    err => {
+      console.error(err)
+    }
+  )
 
 app.get('/', (req, res) => {
-  res.status(200).send('Hello World')
+  res.json({ appName: 'Api checko', version: 1 })
 })
 
-app.listen(PORT, () => {
+app.listen(config.port, () => {
   console.log('Ready For Work')
 })
