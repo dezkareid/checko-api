@@ -17,8 +17,7 @@ const objectSchema = {
   },
   rol: {
     type: Schema.Types.ObjectId,
-    ref: 'Rol',
-    required: true
+    ref: 'Rol'
   }
 }
 
