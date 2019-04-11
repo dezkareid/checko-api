@@ -3,6 +3,8 @@ const mongoose = require('mongoose')
 const express = require('express')
 const app = express()
 
+app.use(express.json())
+
 const apiRouter = require('./api')
 
 mongoose.connect(config.database_url, { useNewUrlParser: true })
