@@ -1,5 +1,6 @@
 const { Router } = require('express')
 const UserRouter = require('./user')
+const EventRouter = require('./event')
 
 const apiRouter = Router()
 
@@ -8,5 +9,6 @@ apiRouter.get('/', (req, res) => {
 })
 
 apiRouter.use('/user', UserRouter)
+apiRouter.use('/event', EventRouter)
 
 module.exports = apiRouter
