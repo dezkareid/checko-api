@@ -21,4 +21,12 @@ const objectSchema = {
   }
 }
 
-module.exports = new Schema(objectSchema)
+const userSchema = new Schema(objectSchema)
+
+userSchema.methods.toJSON = function () {
+  const user = this.toObject()
+  delete user.password
+  return user
+}
+
+module.exports = userSchema
