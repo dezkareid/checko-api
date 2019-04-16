@@ -1,17 +1,30 @@
 const passport = require('passport')
 const { Strategy: JWTStrategy, ExtractJwt } = require('passport-jwt')
 const { authSecret } = require('../../config/token')
+const { User } = require('../../models')
 
-passport.use('jwt', new JWTStrategy({
+function wrapCallbackUserFound (callback) {
+  return function userFound (user) {
+    if (!user) {
+      const error = new Error('User not found')
+      callback(error)
+    } else {
+      callback(null, user)
+    }
+  }
+}
+function findUserByPayload (payload, done) {
+  const userFoundCallback = wrapCallbackUserFound(done)
+  User.findById(payload.id)
+    .then(userFoundCallback)
+}
+
+const strategyConfiguration = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
   secretOrKey: authSecret
-}, (jwtPayload, done) => {
-  if (Date.now() > jwtPayload.expires) {
-    return done('jwt expired')
-  }
+}
 
-  return done(null, jwtPayload)
-}))
+passport.use('jwt', new JWTStrategy(strategyConfiguration, findUserByPayload))
 
 module.exports = {
   authMiddleware: passport.authenticate('jwt', { session: false })
