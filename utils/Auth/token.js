@@ -4,8 +4,9 @@ function createCallbackSignToken (resolve, reject) {
   return function isTokenGenerated (err, token) {
     if (err) {
       reject(err)
+    } else {
+      resolve(token)
     }
-    resolve(token)
   }
 }
 function generateToken (payload, authSecret, options) {
