@@ -15,5 +15,8 @@ apiRouter.get('/', (req, res) => {
 apiRouter.use('/auth', authRouter)
 apiRouter.use('/user', UserRouter)
 apiRouter.use('/event', EventRouter)
+apiRouter.use((err, req, res, next) => {
+  res.status(500).json({ message: err.message })
+})
 
 module.exports = apiRouter
