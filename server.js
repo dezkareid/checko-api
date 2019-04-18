@@ -25,6 +25,10 @@ app.get('/', (req, res) => {
 
 app.use('/api', apiRouter)
 
+app.use((req, res) => {
+  res.status(404).json({ message: 'endpoint not found' })
+})
+
 app.listen(config.port, () => {
   console.log('Ready For Work')
 })
