@@ -1,5 +1,5 @@
 const passport = require('passport')
-const { Strategy: JWTStrategy, ExtractJwt } = require('passport-jwt')
+const { Strategy: JWTStrategy } = require('passport-jwt')
 const { authSecret } = require('../../config/token')
 const { User } = require('../../models')
 
@@ -20,7 +20,7 @@ function findUserByPayload (payload, done) {
 }
 
 const strategyConfiguration = {
-  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  jwtFromRequest: req => req.cookies.jwt,
   secretOrKey: authSecret
 }
 
