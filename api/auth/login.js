@@ -1,5 +1,5 @@
 const { authenticateUser } = require('../../modules/user')
-
+const cookieConfig = require('../../config/cookie')
 function login (req, res) {
   const credentials = {
     email: req.body.email,
@@ -7,6 +7,7 @@ function login (req, res) {
   }
   authenticateUser(credentials)
     .then(token => {
+      res.cookie('jwt', token, cookieConfig)
       res.json({ token: `Bearer ${token}` })
     })
     .catch(error => {
